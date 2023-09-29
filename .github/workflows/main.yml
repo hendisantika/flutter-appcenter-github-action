@@ -1,0 +1,27 @@
+name: Deploy iOS App on AppCenter
+on:
+  push:
+    branches:
+      - main
+      - 'releases/**'
+jobs:
+  Setup:
+    runs-on: self-hosted
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.14.0-14.0.pre.221' # Change this to your version!
+          architecture: x64
+      - run: flutter pub get
+      # - run: flutter test # Run this if your project has tests!
+      - run: flutter build ios --release --no-codesign
+      - run: echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
+      - run: echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
+      - run: echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
+      - run: echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
+      - run: echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
+      
