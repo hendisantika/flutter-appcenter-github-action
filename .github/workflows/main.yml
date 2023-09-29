@@ -12,6 +12,8 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v2.0.2
       - uses: subosito/flutter-action@v2
         with:
           channel: master
