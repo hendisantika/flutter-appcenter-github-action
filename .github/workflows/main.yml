@@ -12,17 +12,28 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Install jq
-        uses: dcarbone/install-jq-action@v2.0.2
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: master
-          architecture: x64
-      - run: flutter pub get
-      # - run: flutter test # Run this if your project has tests!
+      # - name: Install jq
+      #   uses: dcarbone/install-jq-action@v2.0.2
+      # - uses: subosito/flutter-action@v2
+      #   with:
+      #     channel: master
+      #     architecture: x64
+      # - run: flutter pub get
+  Tests:
+    runs-on: self-hosted
+    steps:
+    - name: Run unit tests
+    # - run: flutter test # Run this if your project has tests!
+  Build:
+    runs-on: self-hosted
+    steps:
+      - name: Build IPA
       - run: flutter build ipa --release --no-codesign
+  Deploy:
+    runs-on: self-hosted
+    steps:
       - name: AppCenter CLI Action
         uses: charliealbright/appcenter-cli-action@v1.0.1
         with:
           token: '{{ secrets.APPCENTER_API_TOKEN }}'
-          command: 'apps show'
+          command: 'appcenter apps show'
