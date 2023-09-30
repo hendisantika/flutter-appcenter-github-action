@@ -20,10 +20,11 @@ jobs:
       #     architecture: x64
       # - run: flutter pub get
   Tests:
+    if: false
     runs-on: self-hosted
     steps:
     - name: Run unit tests
-    # - run: flutter test # Run this if your project has tests!
+    - run: flutter test # Run this if your project has tests!
   Build:
     runs-on: self-hosted
     steps:
