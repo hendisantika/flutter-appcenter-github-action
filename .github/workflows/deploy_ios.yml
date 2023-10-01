@@ -4,8 +4,9 @@ jobs:
   Build:
     runs-on: self-hosted
     steps:
-      - run: flutter build ipa --release --no-codesign
+      - run: flutter build ipa --release --verbose --no-codesign
   Deploy:
+    needs: Build
     runs-on: self-hosted
     steps:
       - name: AppCenter CLI Action
