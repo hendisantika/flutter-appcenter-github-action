@@ -6,6 +6,6 @@ on:
       - 'releases/**'
 jobs:
   deploy_iOS:
-    uses: .github/workflows/deploy_ios.yml@latest
+    uses: ./.github/workflows/deploy_ios.yml
   deploy_android:
-    uses: .github/workflows/deploy_android.yml@latest
+    uses: ./.github/workflows/deploy_android.yml
