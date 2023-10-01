@@ -1,0 +1,28 @@
+name: Deploy iOS App on AppCenter
+runs-on: self-hosted
+jobs:
+  Start:
+    runs-on: self-hosted
+    steps:
+      - run: echo "🎉 Triggered by a ${{ github.event_name }} on ${{ github.ref }}"
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v2.0.2
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: master
+          architecture: x64
+      - run: flutter pub get
+  Build:
+    runs-on: self-hosted
+    steps:
+      - run: flutter build ipa --release --no-codesign
+  Deploy:
+    runs-on: self-hosted
+    steps:
+      - name: AppCenter CLI Action
+        uses: charliealbright/appcenter-cli-action@v1.0.1
+        with:
+          token: '{{ secrets.APPCENTER_API_TOKEN }}'
+          command: 'appcenter apps show'

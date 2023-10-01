@@ -1,33 +1,13 @@
-name: Deploy iOS App on AppCenter
+name: Deploy App on AppCenter
 on:
   push:
     branches:
       - main
       - 'releases/**'
 jobs:
-  Setup:
-    runs-on: self-hosted
-    steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      # - name: Install jq
-      #   uses: dcarbone/install-jq-action@v2.0.2
-      # - uses: subosito/flutter-action@v2
-      #   with:
-      #     channel: master
-      #     architecture: x64
-      # - run: flutter pub get
-  Build:
-    runs-on: self-hosted
-    steps:
-      - run: flutter build ipa --release --no-codesign
-  Deploy:
-    runs-on: self-hosted
-    steps:
-      - name: AppCenter CLI Action
-        uses: charliealbright/appcenter-cli-action@v1.0.1
-        with:
-          token: '{{ secrets.APPCENTER_API_TOKEN }}'
-          command: 'appcenter apps show'
+  Deploy_iOS:
+    - name: Deploy iOS
+      uses: ./deploy_ios.yml
+  Deploy_android:
+    - name: Deploy Android
+      uses: ./deploy_android.yml
