@@ -27,7 +27,7 @@ jobs:
         uses: charliealbright/appcenter-cli-action@v1.0.1
         with:
           token: '${{secrets.APPCENTER_API_TOKEN}}'
-          command: 'appcenter apps show'
+          command: 'appcenter help'
   deploy_iOS:
     name: Deploy iOS
     needs: [setup-flutter, setup-appcenter-cli]
