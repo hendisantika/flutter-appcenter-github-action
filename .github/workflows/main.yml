@@ -5,7 +5,8 @@ on:
       - main
       - 'releases/**'
 jobs:
-  Setup Flutter:
+  setup-flutter:
+    name: Setup Flutter
     runs-on: self-hosted
     steps:
       - run: echo "🎉 Triggered by a ${{ github.event_name }} on ${{ github.ref }}"
@@ -18,7 +19,10 @@ jobs:
           channel: master
           architecture: x64
       - run: flutter pub get
-  Setup AppCenter CLI: # must have node and npm installed!
+  setup-appcenter-cli: # must have node and npm installed!
+      name: Setup AppCenter CLI
+      runs-on: self-hosed
+      steps:
       - name: Install appcenter-cli
         uses: charliealbright/appcenter-cli-action@v1.0.1
         with:
@@ -26,9 +30,9 @@ jobs:
           command: 'appcenter apps show'
   deploy_iOS:
     name: Deploy iOS
-    needs: [Setup, Setup Appcenter CLI]
+    needs: [setup-flutter, setup-appcenter-cli]
     uses: ./.github/workflows/deploy_ios.yml
   deploy_android:
     name: Deploy Android
-    needs: [Setup, Setup Appcenter CLI]
+    needs: [setup-flutter, setup-appcenter-cli]
     uses: ./.github/workflows/deploy_android.yml
