@@ -1,5 +1,5 @@
 name: Deploy iOS App on AppCenter
-runs-on: self-hosted
+on: workflow_call
 jobs:
   Start:
     runs-on: self-hosted
