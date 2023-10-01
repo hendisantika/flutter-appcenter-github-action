@@ -6,6 +6,7 @@ jobs:
     steps:
       - run: flutter build apk --release --verbose
   Deploy:
+    needs: Build
     runs-on: self-hosted
     steps:
       - name: AppCenter CLI Action
