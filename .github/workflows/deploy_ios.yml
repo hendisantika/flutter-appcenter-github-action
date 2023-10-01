@@ -1,19 +1,6 @@
 name: Deploy iOS App on AppCenter
 on: workflow_call
 jobs:
-  Start:
-    runs-on: self-hosted
-    steps:
-      - run: echo "🎉 Triggered by a ${{ github.event_name }} on ${{ github.ref }}"
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      - name: Install jq
-        uses: dcarbone/install-jq-action@v2.0.2
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: master
-          architecture: x64
-      - run: flutter pub get
   Build:
     runs-on: self-hosted
     steps:
