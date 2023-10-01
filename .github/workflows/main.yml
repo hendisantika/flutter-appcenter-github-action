@@ -5,9 +5,7 @@ on:
       - main
       - 'releases/**'
 jobs:
-  Deploy_iOS:
-    - name: Deploy iOS
-      uses: ./deploy_ios.yml
-  Deploy_android:
-    - name: Deploy Android
-      uses: ./deploy_android.yml
+  deploy_iOS:
+    uses: .github/workflows/deploy_ios.yml@latest
+  deploy_android:
+    uses: .github/workflows/deploy_android.yml@latest
