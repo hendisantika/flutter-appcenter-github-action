@@ -12,5 +12,5 @@ jobs:
       - name: AppCenter CLI Action
         uses: charliealbright/appcenter-cli-action@v1.0.1
         with:
-          token: '{{ secrets.APPCENTER_API_TOKEN }}'
-          command: 'appcenter apps show'
+          token: '${{secrets.APPCENTER_API_TOKEN}}'
+          command: 'appcenter apps distribute release --app AlvaroBarrosC/GithubActionExample --file ./build/app/outputs/apk/release/app-release.apk --group "Collaborators'
