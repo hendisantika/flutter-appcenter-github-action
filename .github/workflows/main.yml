@@ -5,7 +5,22 @@ on:
       - main
       - 'releases/**'
 jobs:
+  Setup:
+    runs-on: self-hosted
+    steps:
+      - run: echo "🎉 Triggered by a ${{ github.event_name }} on ${{ github.ref }}"
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v2.0.2
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: master
+          architecture: x64
+      - run: flutter pub get
   deploy_iOS:
+    needs: Setup
     uses: ./.github/workflows/deploy_ios.yml
   deploy_android:
+    needs: Setup
     uses: ./.github/workflows/deploy_android.yml
