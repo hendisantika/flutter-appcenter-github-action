@@ -1,5 +1,20 @@
 name: Deploy Android App on AppCenter
-on: workflow_call
+on: 
+  workflow_call:
+    inputs:
+      file:
+        description: 'The path to the file to be released'
+        required: true
+        type: string
+      name:
+        description: 'The name of the app'
+        required: true
+        type: string
+      group:
+        description: 'The group that will have access to the version released'
+        required: false
+        type: string
+        default: '"Collaborators"'
 jobs:
   Build:
     runs-on: self-hosted
@@ -13,4 +28,4 @@ jobs:
         uses: charliealbright/appcenter-cli-action@v1.0.1
         with:
           token: ${{secrets.APPCENTER_API_TOKEN}}
-          command: 'appcenter distribute release -f ./build/app/outputs/apk/release/app-release.apk --app AlvaroBarrosC/GithubAction-Android --group "Collaborators"'
+          command: 'appcenter distribute release -f ${{inputs.file}} --app ${{inputs.name}} --group "Collaborators"'
