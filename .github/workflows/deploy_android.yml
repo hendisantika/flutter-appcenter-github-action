@@ -16,12 +16,14 @@ on:
         type: string
         default: '"Collaborators"'
 jobs:
-  Build:
+  build:
+    name: Build .apk file
     runs-on: self-hosted
     steps:
       - run: flutter build apk --release --verbose
   Deploy:
-    needs: Build
+    name: Deploy file to AppCenter
+    needs: [build]
     runs-on: self-hosted
     steps:
       - name: AppCenter CLI Action
