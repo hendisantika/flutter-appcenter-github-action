@@ -1,9 +1,9 @@
 name: Deploy App on AppCenter
-on: workflow_dispatch
-  # push:
-  #   branches:
-  #     - main
-  #     - 'releases/**'
+on:
+  push:
+    branches:
+      - main
+      - 'releases/**'
 jobs:
   setup-flutter:
     name: Setup Flutter
